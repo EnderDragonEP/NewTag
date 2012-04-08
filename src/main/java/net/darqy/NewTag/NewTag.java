@@ -15,8 +15,10 @@ public class NewTag extends JavaPlugin {
     public static final Logger log = Logger.getLogger("Minecraft");
     public static String prefix;
     
-    public static HashMap<String, String> tags = new HashMap<String, String>();
+    public static String tag_prefix_color;
     public static int max_tag_length;
+    public static HashMap<String, String> tags = new HashMap<String, String>();
+
     YamlConfiguration config;
     ConfigurationSection config_tags;
     
@@ -43,6 +45,7 @@ public class NewTag extends JavaPlugin {
             saveConfig();
         }
         
+        tag_prefix_color = config.getString("tag_prefix_color", "a");
         max_tag_length = config.getInt("max_tag_length", 4);
         config_tags = config.getConfigurationSection("tags");
         for (String name : config_tags.getKeys(false)) {
