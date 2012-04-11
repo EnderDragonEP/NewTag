@@ -1,5 +1,5 @@
 name: NewTag
-version: 1.0.1
+version: 1.1
 main: net.darqy.NewTag.NewTag
 author: Darqy
 description: Put tags on players that are independent of other chat/permissions
@@ -9,6 +9,14 @@ commands:
     usage: /<command> <args>
     aliases: [tag, nt]
 permissions:
-  newtag.admin:
-    description: Allows usage of /donate
+  newtag.set.own:
+    description: Allows player to set own tag
     default: op
+  newtag.set.other:
+    description: Allows player to set other players's tags
+    default: op
+  newtag.clear.own:
+    description: Allows player to clear own tag
+    default: op
+  newtag.clear.other:
+    description: Allows player to clear other player's tags

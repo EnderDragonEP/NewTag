@@ -15,36 +15,60 @@ public class Commands implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
-        if (!plugin.hasPerm(s, "newtag.admin")) {
-            s.sendMessage("§cYou don't have permission to do that!");
-            return true;
-        }
         if (args.length < 1) {
             s.sendMessage("§aNewTag ver.§e " + plugin.getDescription().getVersion());
             return true;
         } else {
-            if (args.length < 2) return false;
             if (args[0].equalsIgnoreCase("set")) {
-                if (args.length < 3) return false;
-                if (args[2].length() > NewTag.max_tag_length) {
+                if (args.length < 2) return false;
+                
+                String pname;
+                String tag = args[1];
+                
+                if (args.length >= 3) {
+                    if (!plugin.hasPerm(s, "newtag.set.other")) {
+                        s.sendMessage("§cYou don't have permission to do that!");
+                        return true;
+                    }
+                    Player p = plugin.getServer().getPlayer(args[2]);
+                    pname = (p != null)? p.getName() : args[2];
+                } else {
+                    if (!plugin.hasPerm(s, "newtag.set.own")) {
+                        s.sendMessage("§cYou don't have permission to do that!");
+                        return true;
+                    }
+                    pname = ((Player) s).getName();
+                }
+                    
+                if (tag.length() > NewTag.max_tag_length) {
                     s.sendMessage("§cTag length is too long, max length is§7 " + NewTag.max_tag_length);
                     return true;
                 }
                 
-                Player p = plugin.getServer().getPlayer(args[1]);
-                String pname;
-                pname = (p != null)? p.getName() : args[1];
-                
-                plugin.config_tags.set(pname, args[2]);
+                plugin.config_tags.set(pname, tag);
                 plugin.saveConfig();
-                NewTag.tags.put(pname, args[2]);
-                plugin.log.info(plugin.prefix + s.getName() + " applied tag " + args[2] + " to " + pname);
-                s.sendMessage("§aApplied tag§e " + args[2] + " §ato§e " + pname);
+                NewTag.tags.put(pname, tag);
+                plugin.log.info(plugin.prefix + s.getName() + " applied tag " + tag + " to " + pname);
+                
+                s.sendMessage("§aApplied tag§e " + tag + " §ato§e " + pname);
                 return true;
+                
             } else if (args[0].equalsIgnoreCase("clear")) {
-                Player p = plugin.getServer().getPlayer(args[1]);
                 String pname;
-                pname = (p != null)? p.getName() : args[1];
+                if (args.length >= 2) {
+                    if (!plugin.hasPerm(s, "newtag.clear.other")) {
+                        s.sendMessage("§cYou don't have permission to do that!");
+                        return true;
+                    }
+                    Player p = plugin.getServer().getPlayer(args[1]);
+                    pname = (p != null)? p.getName() : args[1];
+                } else {
+                    if (!plugin.hasPerm(s, "newtag.clear.own")) {
+                        s.sendMessage("§cYou don't have permission to do that!");
+                        return true;
+                    }
+                    pname = ((Player) s).getName();
+                }
                 
                 if (plugin.config_tags.contains(pname)) {
                     plugin.config_tags.set(pname, null);

@@ -47,10 +47,13 @@ public class NewTag extends JavaPlugin {
         
         tag_prefix_color = config.getString("tag_prefix_color", "a");
         max_tag_length = config.getInt("max_tag_length", 4);
+        config.set("tag_prefix_color", tag_prefix_color);
+        config.set("max_tag_length", max_tag_length);
         config_tags = config.getConfigurationSection("tags");
         for (String name : config_tags.getKeys(false)) {
             tags.put(name, config_tags.getString(name));
         }
+        saveConfig();
     }
     
     public boolean hasPerm(CommandSender s, String node) {

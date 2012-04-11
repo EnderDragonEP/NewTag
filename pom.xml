@@ -6,7 +6,7 @@
 
     <groupId>net.darqy</groupId>
     <artifactId>NewTag</artifactId>
-    <version>1.2.5-dev-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <name>NewTag</name>
     <url>http://darqy.net/</url>
 
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.2.5-R0.2-SNAPSHOT</version>
+            <version>1.2.5-R1.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
