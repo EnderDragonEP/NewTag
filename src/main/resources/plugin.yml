@@ -20,3 +20,12 @@ permissions:
     default: op
   newtag.clear.other:
     description: Allows player to clear other player's tags
+    default: op
+  newtag.*:
+    description: All newtag permissions
+    default: op
+    children:
+      newtag.set.own: true
+      newtag.set.other: true
+      newtag.clear.own: true
+      newtag.clear.ohter: true
