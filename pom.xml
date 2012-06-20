@@ -19,14 +19,8 @@
     <!-- Repository locations -->
     <repositories>
         <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/content/groups/public</url>
-            <releases>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
+            <id>spout-repo</id>
+            <url>http://nexus.spout.org/content/groups/public/</url>
         </repository>
     </repositories>
 
@@ -69,9 +63,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.2.5-R1.0</version>
-            <type>jar</type>
-            <scope>compile</scope>
+            <version>1.2.5-R1.3</version>
         </dependency>
     </dependencies>
 </project>
