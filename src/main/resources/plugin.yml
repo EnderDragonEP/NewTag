@@ -1,6 +1,6 @@
 name: NewTag
 version: ${p.version}-B${build.number}
-main: net.darqy.NewTag.NewTag
+main: net.darqy.bukkit.NewTag.NewTag
 author: Darqy
 description: Put tags on players that are independent of other chat/permissions
 commands:

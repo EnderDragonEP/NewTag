@@ -1,4 +1,4 @@
-package net.darqy.NewTag;
+package net.darqy.bukkit.NetTag;
 
 import java.io.File;
 import java.util.HashMap;
@@ -17,6 +17,7 @@ public class NewTag extends JavaPlugin {
     
     public static String tag_prefix_color;
     public static int max_tag_length;
+    public static boolean enforce_max_tag_length;
     public static HashMap<String, String> tags = new HashMap<String, String>();
 
     YamlConfiguration config;
@@ -45,10 +46,9 @@ public class NewTag extends JavaPlugin {
             saveConfig();
         }
         
-        tag_prefix_color = config.getString("tag_prefix_color", "a");
-        max_tag_length = config.getInt("max_tag_length", 4);
-        config.set("tag_prefix_color", tag_prefix_color);
-        config.set("max_tag_length", max_tag_length);
+        config.set("tag_prefix_color", tag_prefix_color = config.getString("tag_prefix_color", "a"));
+        config.set("enforce_max_tag_length", enforce_max_tag_length = config.getBoolean("enforce_max_tag_length", true));
+        config.set("max_tag_length", max_tag_length = config.getInt("max_tag_length"));
         config_tags = config.getConfigurationSection("tags");
         for (String name : config_tags.getKeys(false)) {
             tags.put(name, config_tags.getString(name));

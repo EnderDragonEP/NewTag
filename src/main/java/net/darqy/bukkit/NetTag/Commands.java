@@ -1,4 +1,4 @@
-package net.darqy.NewTag;
+package net.darqy.bukkit.NetTag;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,10 +7,10 @@ import org.bukkit.entity.Player;
 
 public class Commands implements CommandExecutor {
     
-    NewTag plugin;
+    final NewTag plugin;
     
     public Commands(NewTag instance) {
-        plugin = instance;
+        this.plugin = instance;
     }
     
     @Override
@@ -40,7 +40,7 @@ public class Commands implements CommandExecutor {
                     pname = ((Player) s).getName();
                 }
                     
-                if (tag.length() > NewTag.max_tag_length) {
+                if (NewTag.enforce_max_tag_length && tag.length() > NewTag.max_tag_length) {
                     s.sendMessage("§cTag length is too long, max length is§7 " + NewTag.max_tag_length);
                     return true;
                 }
