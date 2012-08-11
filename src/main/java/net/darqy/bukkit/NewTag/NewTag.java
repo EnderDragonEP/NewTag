@@ -1,4 +1,4 @@
-package net.darqy.bukkit.NetTag;
+package net.darqy.bukkit.NewTag;
 
 import java.io.File;
 import java.util.HashMap;

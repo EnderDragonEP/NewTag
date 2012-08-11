@@ -1,4 +1,4 @@
-package net.darqy.bukkit.NetTag;
+package net.darqy.bukkit.NewTag;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
