@@ -1,5 +1,7 @@
 package net.darqy.bukkit.newtag;
 
+import java.util.Arrays;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,6 +19,9 @@ public class Commands implements CommandExecutor {
     public static final String TAG_TOO_LONG = ChatColor.RED + "Tag can be no longer than %d characters.";
     public static final String TAG_ILLEGAL = ChatColor.RED + "You can not use the phrase \"%s\" in the tag";
     
+    private static final List<String> SET = Arrays.asList("set", "add", "def", "define");
+    private static final List<String> CLEAR = Arrays.asList("clear", "rm", "rem", "remove", "del", "delete");
+    
     @Override
     public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
         if (args.length < 1) {
@@ -25,7 +30,7 @@ public class Commands implements CommandExecutor {
         }
         
         String player;
-        if (args[0].equalsIgnoreCase("set")) {
+        if (SET.contains(args[0].toLowerCase())) {
             if (args.length < 2) {
                 s.sendMessage(ChatColor.YELLOW + "Usage: /" + l + " set [tag]");
                 return true;
@@ -42,7 +47,7 @@ public class Commands implements CommandExecutor {
             }
             
             if (NewTag.alphanumeric_only) {
-                tag = tag.replaceAll("[^a-zA-Z0-9&]", "");
+                tag = tag.replaceAll("[^a-zA-Z0-9&_]", "");
             }
 
             if (NewTag.max_tag_length > 0 && tag.length() > NewTag.max_tag_length) {
@@ -63,7 +68,7 @@ public class Commands implements CommandExecutor {
             plugin.saveTag(player, tag);
             plugin.getLogger().info(s.getName() + " applied tag: \"" + tag + "\" to " + player);
             s.sendMessage("§aApplied tag:§e " + tag + (player.equals(s.getName())? "" : " §ato§e " + player));
-        } else if (args[0].equalsIgnoreCase("clear")) {
+        } else if (CLEAR.contains(args[0].toLowerCase())) {
             if (args.length >= 2) {
                 if (!hasPerm(s, "newtag.clear.other", false)) return true;
                 Player p = plugin.getServer().getPlayer(args[1]);
@@ -76,7 +81,7 @@ public class Commands implements CommandExecutor {
             if (plugin.hasTag(player)) {
                 plugin.saveTag(player, null);
                 plugin.getLogger().info(s.getName() + " removed tag from " + player);
-                s.sendMessage("§aRemoved " + (player.equals(s.getName())? "your tag" : player + "'s tag"));
+                s.sendMessage("§aCleared " + (player.equals(s.getName())? "your tag" : player + "'s tag"));
             } else {
                 s.sendMessage("§7" + player + " §cnever had a tag");
             }
@@ -87,13 +92,11 @@ public class Commands implements CommandExecutor {
     }
         
     public boolean hasPerm(CommandSender s, String node, boolean silent) {
-        if (!s.hasPermission(node)) {
-            if (!silent) {
-                s.sendMessage(ChatColor.RED + "You don't have permission.");
-            }
-            return false;
+        boolean has = s.hasPermission(node);
+        if (!has && !silent) {
+            s.sendMessage(ChatColor.RED + "You don't have permission.");
         }
-        return true;
+        return has;
     }
 
 }
