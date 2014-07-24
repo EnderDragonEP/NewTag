@@ -2,7 +2,7 @@ name: NewTag
 version: ${p.version}
 main: net.darqy.bukkit.newtag.NewTag
 author: Darq_Alder
-description: Put tags on players that are independent of other chat/permissions
+description: Put tags on players that are independent of other chat/permissions plugins.
 commands:
   newtag:
     description: Control NewTag
@@ -24,6 +24,9 @@ permissions:
   newtag.anytag:
     description: Allows any phrase to be used in tag, regardless of disallowed list
     default: op
+  newtag.longtag:
+    description: Allows the player setting a tag to bypass the length limit
+    default: op
   newtag.*:
     description: All newtag permissions
     default: op
@@ -33,3 +36,4 @@ permissions:
       newtag.clear.own: true
       newtag.clear.ohter: true
       newtag.anytag: true
+      newtag.longtag: true

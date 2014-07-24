@@ -50,14 +50,15 @@ public class Commands implements CommandExecutor {
                 tag = tag.replaceAll("[^a-zA-Z0-9&_]", "");
             }
 
-            if (NewTag.max_tag_length > 0 && tag.length() > NewTag.max_tag_length) {
+            if (NewTag.max_tag_length > 0 && tag.length() > NewTag.max_tag_length &&
+                    !hasPerm(s, "newtag.longtag", true)) {
                 s.sendMessage(String.format(TAG_TOO_LONG, NewTag.max_tag_length));
                 return true;
             }
             
             if (!hasPerm(s, "newtag.anytag", true)) {
                 String temp = tag.toLowerCase();
-                for (final String disallowed : NewTag.dissallowed_tags) {
+                for (final String disallowed : NewTag.disallowed_tags) {
                     if (temp.contains(disallowed)) {
                         s.sendMessage(String.format(TAG_ILLEGAL, disallowed));
                         return true;
@@ -78,7 +79,7 @@ public class Commands implements CommandExecutor {
                 player = s.getName();
             }
 
-            if (plugin.hasTag(player)) {
+            if (plugin.hasTagSet(player)) {
                 plugin.saveTag(player, null);
                 plugin.getLogger().info(s.getName() + " removed tag from " + player);
                 s.sendMessage("§aCleared " + (player.equals(s.getName())? "your tag" : player + "'s tag"));
