@@ -46,7 +46,7 @@ public class PlayerListener implements Listener {
         String listName = format + e.getPlayer().getPlayerListName();
         
         // truncate the result to max 16 characters long
-        listName = listName.substring(0, Math.min(15, listName.length()));
+        //listName = listName.substring(0, Math.min(15, listName.length()));
         
         // update the tab list name for this player
         e.getPlayer().setPlayerListName(listName);
